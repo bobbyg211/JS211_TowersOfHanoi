@@ -27,8 +27,9 @@ const movePiece = (startStack, endStack) => {
   if (isLegal(startStack, endStack)) {
     let temp = stacks[startStack].pop();
     stacks[endStack].push(temp);
+    return true;
   } else {
-    console.log("Illegal move! Try again.");
+    return "Illegal move! Try again.";
   }
 };
 
@@ -60,7 +61,7 @@ const checkForWin = () => {
   // Your code here
   for (let stack in stacks) { 
     if (stacks[stack].length === 4 && stack !== "a") {
-      console.log("Winner!! Resetting board....");
+      return "Winner!! Resetting board....";
     }
   }
 };
@@ -97,11 +98,11 @@ if (typeof describe === "function") {
         b: [],
         c: []
       };
-      assert.equal(towersOfHanoi("a", "b"), true);
+      assert.equal(movePiece("a", "b"), true);
     });
     it('check for win', () => {
       stacks = { a: [], b: [4, 3, 2, 1], c: [] };
-      assert.equal(checkForWin(), "Winner!! Resetting board...");
+      assert.equal(checkForWin(), "Winner!! Resetting board....");
     });
   });
 } else {

@@ -34,14 +34,23 @@ const movePiece = (startStack, endStack) => {
 
 const isLegal = (startStack, endStack) => {
   // Your code here
-  let startLastIndex = stacks[startStack].length - 1;
-  let endLastIndex = stacks[endStack].length - 1;
- 
 
-  if (endLastIndex === -1) {
-    return true;
-  } else if (stacks[startStack][startLastIndex] < stacks[endStack][endLastIndex]) {
-    return true;
+  startStack.toLowerCase();
+  endStack.toLowerCase();
+
+  const validVals = ["a","b","c"];
+
+  if (validVals.includes(startStack) && validVals.includes(endStack)){
+    let startLastIndex = stacks[startStack].length - 1;
+    let endLastIndex = stacks[endStack].length - 1;
+  
+    if (endLastIndex === -1) {
+      return true;
+    } else if (stacks[startStack][startLastIndex] < stacks[endStack][endLastIndex]) {
+      return true;
+    } else {
+      return false;
+    }
   } else {
     return false;
   }
@@ -77,10 +86,10 @@ if (typeof describe === "function") {
   // most are notes for human eyes to read, but essentially passes in inputs then compares if the function you built return the expected output.
   describe("#towersOfHanoi()", () => {
     it("detect illegal move", () => {
-      assert.equal(isLegal("a", "f"), "Illegal move! Try again.");
-      assert.equal(isLegal("", ""), "Illegal move! Try again.");
+      assert.equal(isLegal("a", "f"), false);
+      assert.equal(isLegal("", ""), false);
       towersOfHanoi("a", "b");
-      assert.equal(towersOfHanoi("a", "b"), "Illegal move! Try again.");
+      assert.equal(isLegal("a", "b"), false);
     });
     it("allow legal move", () => {
       stacks = {
